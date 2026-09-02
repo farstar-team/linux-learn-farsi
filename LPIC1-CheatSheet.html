@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مرجع کامل LPIC-1 — راهنمای جامع Exam 101 و 102</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f6f8fa;
+    --bg-card: #ffffff;
+    --border: #d0d7de;
+    --border-soft: #eaeef2;
+    --text: #1f2328;
+    --text-muted: #59636e;
+    --primary: #0969da;
+    --primary-soft: #ddf4ff;
+    --accent: #1a7f37;
+    --accent-soft: #dafbe1;
+    --warn: #9a6700;
+    --warn-soft: #fff8c5;
+    --danger: #cf222e;
+    --danger-soft: #ffebe9;
+    --code-bg: #f6f8fa;
+    --code-border: #d0d7de;
+    --code-text: #24292f;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --nav-height: 56px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117; --bg-soft: #161b22; --bg-card: #0d1117;
+      --border: #30363d; --border-soft: #21262d;
+      --text: #e6edf3; --text-muted: #8b949e;
+      --primary: #4493f8; --primary-soft: #388bfd1a;
+      --accent: #3fb950; --accent-soft: #2ea04326;
+      --warn: #d29922; --warn-soft: #3a2d12;
+      --danger: #f85149; --danger-soft: #4d1418;
+      --code-bg: #161b22; --code-border: #30363d; --code-text: #c9d1d9;
+      --shadow: 0 1px 3px rgba(0,0,0,0.4); --shadow-hover: 0 4px 12px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1117; --bg-soft: #161b22; --bg-card: #0d1117;
+    --border: #30363d; --border-soft: #21262d;
+    --text: #e6edf3; --text-muted: #8b949e;
+    --primary: #4493f8; --primary-soft: #388bfd1a;
+    --accent: #3fb950; --accent-soft: #2ea04326;
+    --warn: #d29922; --warn-soft: #3a2d12;
+    --danger: #f85149; --danger-soft: #4d1418;
+    --code-bg: #161b22; --code-border: #30363d; --code-text: #c9d1d9;
+    --shadow: 0 1px 3px rgba(0,0,0,0.4); --shadow-hover: 0 4px 12px rgba(0,0,0,0.6);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 16px); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Vazirmatn", "Tahoma", Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; padding-bottom: 60px;
+  }
+
+  /* Navbar */
+  .navbar {
+    position: sticky; top: 0; z-index: 100; height: var(--nav-height);
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; gap: 16px;
+  }
+  .navbar h1 { font-size: 16px; font-weight: 700; white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+  .navbar h1 .logo {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff; width: 30px; height: 30px; border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 800;
+  }
+  .nav-links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 500;
+    padding: 6px 12px; border-radius: 999px; white-space: nowrap; transition: all 0.15s;
+  }
+  .nav-links a:hover { color: var(--text); background: var(--bg-soft); }
+  .nav-links a.active { color: var(--primary); background: var(--primary-soft); }
+  .theme-toggle {
+    background: var(--bg-soft); border: 1px solid var(--border); border-radius: 999px;
+    width: 36px; height: 36px; cursor: pointer; display: inline-flex;
+    align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; transition: all 0.15s;
+  }
+  .theme-toggle:hover { border-color: var(--primary); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+
+  /* Hero */
+  .hero { text-align: center; padding: 44px 16px 24px; }
+  .hero-badges { margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .hero-badges img { height: 26px; }
+  .hero h2 {
+    font-size: clamp(28px, 5vw, 44px); font-weight: 900; line-height: 1.3; margin-bottom: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .hero .subtitle { font-size: clamp(15px, 2.2vw, 19px); color: var(--text-muted); max-width: 680px; margin: 0 auto; }
+  .hero-cta { margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 999px;
+    font-size: 14px; font-weight: 600; text-decoration: none; background: var(--bg-card);
+    border: 1px solid var(--border); color: var(--text); transition: all 0.15s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--primary); }
+  .btn-primary { background: linear-gradient(135deg, var(--primary), #1f6feb); color: #fff; border: none; }
+  .btn-primary:hover { box-shadow: 0 6px 16px rgba(9,105,218,0.4); }
+  .btn-accent { background: linear-gradient(135deg, var(--accent), #1f883d); color: #fff; border: none; }
+  .btn-accent:hover { box-shadow: 0 6px 16px rgba(26,127,55,0.4); }
+
+  /* TOC */
+  .toc-section { margin: 36px 0; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  .section-desc { color: var(--text-muted); font-size: 14px; margin-bottom: 16px; }
+  .exam-chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+  .exam-chip.exam101 { background: var(--primary-soft); color: var(--primary); }
+  .exam-chip.exam102 { background: var(--accent-soft); color: var(--accent); }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .toc-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px; text-decoration: none; color: var(--text); display: flex; gap: 14px;
+    align-items: flex-start; transition: all 0.2s; box-shadow: var(--shadow);
+  }
+  .toc-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: var(--primary); }
+  .toc-card .num {
+    background: var(--bg-soft); border: 1px solid var(--border); font-weight: 800; font-size: 15px;
+    width: 40px; height: 40px; border-radius: 10px; display: inline-flex; align-items: center;
+    justify-content: center; flex-shrink: 0; color: var(--primary);
+  }
+  .toc-card .t-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .toc-card .t-desc { color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+
+  /* Divider */
+  .divider { display: flex; align-items: center; gap: 16px; margin: 44px 0 8px; }
+  .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+  .divider span { font-size: 26px; font-weight: 900; white-space: nowrap; }
+
+  /* Section */
+  .section { margin: 28px 0 44px; scroll-margin-top: calc(var(--nav-height) + 16px); }
+  .section-header { display: flex; align-items: center; gap: 14px; padding-bottom: 14px; border-bottom: 2px solid var(--border); margin-bottom: 20px; }
+  .section-header .icon {
+    background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff;
+    width: 46px; height: 46px; border-radius: 12px; display: inline-flex; align-items: center;
+    justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: var(--shadow);
+  }
+  .section-header h2 { font-size: 24px; font-weight: 800; }
+  .section-header .sub { color: var(--text-muted); font-size: 13px; }
+  .sub-section { background: var(--bg-card); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 20px; margin: 16px 0; box-shadow: var(--shadow); }
+  .sub-section h3 { font-size: 17px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--primary); }
+  .sub-section h3::before { content: ""; width: 4px; height: 18px; background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 999px; display: inline-block; }
+  .sub-section p { margin-bottom: 12px; font-size: 15px; }
+  .sub-section ul, .sub-section ol { padding-right: 22px; margin: 10px 0; }
+  .sub-section li { margin: 4px 0; font-size: 15px; }
+
+  /* Command block */
+  .cmd { position: relative; border: 1px solid var(--code-border); border-radius: var(--radius-sm); background: var(--code-bg); margin: 14px 0; overflow: hidden; }
+  .cmd-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; background: var(--bg-soft); border-bottom: 1px solid var(--code-border); font-size: 12px; color: var(--text-muted); font-family: "SFMono-Regular", Consolas, monospace; }
+  .cmd-head .dots { display: inline-flex; gap: 5px; }
+  .cmd-head .dots i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .cmd-head .dots i:nth-child(1){ background:#ff5f57; }
+  .cmd-head .dots i:nth-child(2){ background:#febc2e; }
+  .cmd-head .dots i:nth-child(3){ background:#28c840; }
+  .cmd-copy {
+    background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted);
+    border-radius: 6px; padding: 3px 10px; font-size: 11px; font-weight: 600; cursor: pointer;
+    font-family: inherit; display: inline-flex; align-items: center; gap: 5px; transition: all 0.15s;
+  }
+  .cmd-copy:hover { color: var(--primary); border-color: var(--primary); }
+  .cmd-copy.copied { color: var(--accent); border-color: var(--accent); }
+  .cmd pre { padding: 14px 16px; overflow-x: auto; font-family: "SFMono-Regular", Consolas, "Liberation Mono", "Vazir Code", monospace; font-size: 13.5px; line-height: 1.6; color: var(--code-text); background: transparent; }
+  .cmd.with-label pre { padding-top: 34px; }
+  .cmd .label { position: absolute; top: 8px; left: 12px; font-size: 12px; font-weight: 700; color: var(--primary); background: var(--primary-soft); padding: 2px 10px; border-radius: 999px; pointer-events: none; }
+
+  /* Callout */
+  .callout { border-radius: var(--radius-sm); padding: 14px 16px; margin: 16px 0; border: 1px solid; font-size: 14.5px; }
+  .callout .ct { display: flex; align-items: center; gap: 8px; font-weight: 800; margin-bottom: 5px; font-size: 14px; }
+  .callout p { margin-bottom: 4px; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout code { background: color-mix(in srgb, currentColor 12%, transparent); border: 1px solid color-mix(in srgb, currentColor 25%, transparent); border-radius: 5px; padding: 1px 6px; font-size: 0.875em; }
+  .callout.tip { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 35%, transparent); }
+  .callout.tip .ct { color: var(--accent); }
+  .callout.warning { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 35%, transparent); }
+  .callout.warning .ct { color: var(--warn); }
+  .callout.note { background: var(--primary-soft); border-color: color-mix(in srgb, var(--primary) 35%, transparent); }
+  .callout.note .ct { color: var(--primary); }
+  .callout.danger { background: var(--danger-soft); border-color: color-mix(in srgb, var(--danger) 35%, transparent); }
+  .callout.danger .ct { color: var(--danger); }
+
+  /* Tables */
+  .tbl-wrap { overflow-x: auto; margin: 14px 0; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--bg-card); }
+  th, td { padding: 10px 14px; text-align: right; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+  thead th { background: var(--bg-soft); font-weight: 700; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--bg-soft); }
+  code { background: var(--bg-soft); border: 1px solid var(--border-soft); border-radius: 5px; padding: 1px 6px; font-family: "SFMono-Regular", Consolas, monospace; font-size: 0.875em; color: var(--primary); }
+  .sub-section code, .callout code { background: var(--bg-soft); border: 1px solid var(--border-soft); color: var(--primary); }
+
+  /* Back to top + FAB */
+  .back-top { display: inline-flex; align-items: center; gap: 6px; color: var(--primary); text-decoration: none; font-size: 13px; font-weight: 600; margin-top: 12px; }
+  .back-top:hover { text-decoration: underline; }
+  .back-to-top-fab {
+    position: fixed; bottom: 24px; left: 24px; width: 46px; height: 46px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; border: none;
+    cursor: pointer; font-size: 20px; box-shadow: var(--shadow-hover); opacity: 0; visibility: hidden;
+    transform: translateY(10px); transition: all 0.25s; z-index: 90;
+  }
+  .back-to-top-fab.show { opacity: 1; visibility: visible; transform: translateY(0); }
+  .back-to-top-fab:hover { transform: translateY(-3px); }
+
+  /* Footer + chart */
+  .footer { text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 50px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+  /* Quick reference grid */
+  .qr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 14px; }
+  .qr-item { background: var(--bg-card); border: 1px solid var(--border-soft); border-radius: var(--radius-sm); padding: 12px 14px; }
+  .qr-item code { display: block; margin-bottom: 4px; }
+
+  @media print { .navbar, .theme-toggle, .cmd-copy, .back-to-top-fab { display: none !important; } body { background: #fff; color: #000; } }
+  @media (max-width: 640px) {
+    .container { padding: 20px 12px; }
+    .navbar h1 span.hide-mobile { display: none; }
+    .toc-grid, .qr-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <h1><span class="logo">LP</span><span class="hide-mobile">مرجع LPIC-1</span></h1>
+  <div class="nav-links" id="navLinks">
+    <a href="#toc">فهرست</a>
+    <a href="#sec1">سخت‌افزار</a>
+    <a href="#sec2">بسته‌ها</a>
+    <a href="#sec3">دستورات</a>
+    <a href="#sec4">دیسک</a>
+    <a href="#sec5">اسکریپت</a>
+    <a href="#sec6">دسکتاپ</a>
+    <a href="#sec7">مدیریت</a>
+    <a href="#sec8">سرویس‌ها</a>
+    <a href="#sec9">شبکه</a>
+    <a href="#sec10">امنیت</a>
+    <a href="#quickref">سریع</a>
+  </div>
+  <button class="theme-toggle" id="themeToggle" title="تغییر تم" aria-label="تغییر تم">🌙</button>
+</nav>
+
+<div class="container">
+
+  <header class="hero" id="top">
+    <div class="hero-badges">
+      <img src="https://img.shields.io/badge/LPIC--1-Exam%20101%20%26%20102-brightgreen?style=for-the-badge&logo=linux&logoColor=white" alt="LPIC-1">
+      <img src="https://img.shields.io/badge/Linux-Production%20Ready-blue?style=for-the-badge&logo=gnubash&logoColor=white" alt="Linux">
+      <img src="https://img.shields.io/badge/Bash-Scripting-orange?style=for-the-badge&logo=gnubash&logoColor=white" alt="Bash">
+      <img src="https://img.shields.io/badge/DevOps-Engineer-red?style=for-the-badge&logo=docker&logoColor=white" alt="DevOps">
+      <img src="https://img.shields.io/badge/Version-3.0-9cf?style=for-the-badge" alt="Version">
+      <img src="https://img.shields.io/badge/Language-فارسی-purple?style=for-the-badge" alt="Persian">
+    </div>
+    <h2>مرجع کامل LPIC-1</h2>
+    <p class="subtitle">راهنمای جامع، تولید-محور و تعاملی برای آزمون‌های ۱۰۱ و ۱۰۲ — مخصوص مهندسان DevOps و مدیران سیستم لینوکس</p>
+    <div class="hero-cta">
+      <a href="#toc" class="btn btn-primary">📚 شروع خواندن</a>
+      <a href="#sec10" class="btn btn-accent">🔒 بررسی امنیت</a>
+      <a href="#quickref" class="btn">⚡ دستورات سریع</a>
+    </div>
+  </header>
+
+  <div id="toc" class="toc-section">
+    <div class="divider"><span>فهرست مطالب تعاملی</span></div>
+    <p class="section-desc">روی هر کارت کلیک کنید تا به بخش مربوطه پرش کنید. ساختار مطابق با سرفصل‌های رسمی LPIC-1 v5.0 است. روی دکمه «کپی» هر بلوک کلیک کنید تا دستور مستقیماً در کلیپ‌بورد ذخیره شود.</p>
+
+    <div class="section-title"><span class="exam-chip exam101">آزمون ۱۰۱</span> مفاهیم بنیادی</div>
+    <p class="section-desc" style="margin-bottom:14px">System Architecture تا User Interfaces — پایه‌های لینوکس</p>
+    <div class="toc-grid">
+      <a class="toc-card" href="#sec1"><span class="num">۱</span><div><div class="t-title">مبانی سیستم و سخت‌افزار</div><div class="t-desc">معماری، BIOS/UEFI، Boot Process، kernel modules، حافظه، FHS</div></div></a>
+      <a class="toc-card" href="#sec2"><span class="num">۲</span><div><div class="t-title">نصب لینوکس و مدیریت بسته‌ها</div><div class="t-desc">APT، DNF/YUM، RPM، dpkg، Flatpak، ریپازیتوری‌ها</div></div></a>
+      <a class="toc-card" href="#sec3"><span class="num">۳</span><div><div class="t-title">دستورات گنو و یونیکس</div><div class="t-desc">فایل‌ها، grep، awk، sed، pipes، process، environment</div></div></a>
+      <a class="toc-card" href="#sec4"><span class="num">۴</span><div><div class="t-title">دیسک‌ها، پارتیشن و فایل‌سیستم</div><div class="t-desc">fdisk/parted، LVM، RAID، mkfs، mount، fstab، swap</div></div></a>
+      <a class="toc-card" href="#sec5"><span class="num">۵</span><div><div class="t-title">شل، اسکریپت‌نویسی و SQL</div><div class="t-desc">Bash، متغیرها، حلقه‌ها، توابع، sed، awk، SQLite</div></div></a>
+      <a class="toc-card" href="#sec6"><span class="num">۶</span><div><div class="t-title">رابط کاربری و دسکتاپ</div><div class="t-desc">X11 vs Wayland، Display Manager، tmux/screen</div></div></a>
+    </div>
+
+    <div class="section-title" style="margin-top:28px"><span class="exam-chip exam102">آزمون ۱۰۲</span> مفاهیم پیشرفته</div>
+    <p class="section-desc" style="margin-bottom:14px">مدیریت سیستم تا امنیت — عملیات روزمره ادمین</p>
+    <div class="toc-grid">
+      <a class="toc-card" href="#sec7"><span class="num">۷</span><div><div class="t-title">وظایف مدیریتی و دسترسی‌ها</div><div class="t-desc">کاربران/گروه‌ها، permissions، SUID/SGID، ACL، quota، sudo</div></div></a>
+      <a class="toc-card" href="#sec8"><span class="num">۸</span><div><div class="t-title">سرویس‌های ضروری سیستم</div><div class="t-desc">systemd، journalctl، rsyslog، cron، systemd-timer، NTP</div></div></a>
+      <a class="toc-card" href="#sec9"><span class="num">۹</span><div><div class="t-title">مبانی شبکه</div><div class="t-desc">TCP/IP، ip/nmcli، dig/ss، iptables/nftables، firewalld</div></div></a>
+      <a class="toc-card" href="#sec10"><span class="num">۱۰</span><div><div class="t-title">امنیت سیستم</div><div class="t-desc">SSH، PAM، SELinux، AppArmor، GPG، fail2ban</div></div></a>
+    </div>
+  </div>
+
+  <div class="divider"><span>آزمون ۱۰۱</span></div>
+
+  <!-- SECTION 1 -->
+  <section class="section" id="sec1">
+    <div class="section-header"><div class="icon">🖥️</div><div><h2>۱. مبانی سیستم و سخت‌افزار</h2><div class="sub">System Architecture &amp; Hardware</div></div></div>
+
+    <div class="sub-section">
+      <h3>معماری سیستم و پردازنده</h3>
+      <p>لینوکس روی معماری‌های متنوعی اجرا می‌شود. شناسایی معماری روی انتخاب بسته و دستورات تأثیر می‌گذارد. پرکاربردترین‌ها: <strong>x86_64</strong> (سرورها) و <strong>aarch64</strong> (ابر و ARM).</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>معماری</th><th>نتیجه uname -m</th><th>کاربرد</th></tr></thead>
+        <tbody>
+          <tr><td>x86_64 / AMD64</td><td><code>x86_64</code></td><td>سرورها و دسکتاپ‌ها</td></tr>
+          <tr><td>ARM 64-bit</td><td><code>aarch64</code></td><td>رزبری‌پای، سرورهای ابری</td></tr>
+          <tr><td>ARM 32-bit</td><td><code>armv7l</code></td><td>IoT، تجهیزات</td></tr>
+          <tr><td>IBM Z</td><td><code>s390x</code></td><td>مین‌فریم</td></tr>
+          <tr><td>RISC-V</td><td><code>riscv64</code></td><td>پلتفرم‌های نوظهور</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cmd with-label"><span class="label">شناسایی معماری</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="uname -m&#10;uname -a&#10;arch&#10;lscpu&#10;cat /proc/cpuinfo | head -20">⧉ کپی</button></div><pre><code>uname -m          <span style="opacity:.7"># معماری مثل x86_64</span>
+uname -a          <span style="opacity:.7"># اطلاعات کامل هسته</span>
+arch              <span style="opacity:.7"># معادل uname -m</span>
+lscpu             <span style="opacity:.7"># خلاصه اطلاعات CPU</span>
+cat /proc/cpuinfo | head -20</code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>BIOS در برابر UEFI</h3>
+      <p>UEFI مدرن‌تر است، از پارتیشن GPT و Secure Boot پشتیبانی می‌کند و پارتیشن ESP (EFI System Partition) دارد.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>ویژگی</th><th>BIOS (سنتی)</th><th>UEFI (مدرن)</th></tr></thead>
+        <tbody>
+          <tr><td>پارتیشن بوت</td><td>MBR (حداکثر ۲TB)</td><td>GPT (تا ۹.۴ZB)</td></tr>
+          <tr><td>حالت اجرا</td><td>16-bit</td><td>32/64-bit</td></tr>
+          <tr><td>Secure Boot</td><td>خیر</td><td>بله</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cmd with-label"><span class="label">بررسی حالت بوت</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="[ -d /sys/firmware/efi ] &amp;&amp; echo UEFI || echo BIOS&#10;lsblk /dev/sda">⧉ کپی</button></div><pre><code><span style="opacity:.7"># خروجی UEFI یا BIOS</span>
+[ -d /sys/firmware/efi ] &amp;&amp; echo <span style="opacity:.7">"UEFI"</span> || echo <span style="opacity:.7">"BIOS"</span>
+lsblk /dev/sda          <span style="opacity:.7"># مشاهده ESP</span></code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>فرآیند بوت لینوکس</h3>
+      <p>روند بوت: <strong>POST/UEFI ← Bootloader (GRUB2) ← Kernel ← initramfs ← systemd (PID 1) ← Target</strong>. GRUB2 فایل تنظیماتش <code>/etc/default/grub</code> است.</p>
+      <div class="cmd with-label"><span class="label">عیب‌یابی بوت</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="journalctl -b -p err&#10;systemd-analyze&#10;systemd-analyze blame&#10;systemd-analyze critical-chain&#10;uname -r">⧉ کپی</button></div><pre><code>journalctl -b -p err          <span style="opacity:.7"># خطاهای بوت اخیر</span>
+systemd-analyze               <span style="opacity:.7"># زمان کل بوت</span>
+systemd-analyze blame         <span style="opacity:.7"># زمان هر سرویس</span>
+systemd-analyze critical-chain
+uname -r                      <span style="opacity:.7"># نسخه هسته</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">پیکربندی GRUB2</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo vi /etc/default/grub&#10;sudo grub2-mkconfig -o /boot/grub2/grub.cfg&#10;sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg">⧉ کپی</button></div><pre><code><span style="opacity:.7"># ویرایش تنظیمات (نه grub.cfg!)</span>
+sudo vi /etc/default/grub
+<span style="opacity:.7"># اعمال تغییرات:</span>
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+<span style="opacity:.7"># در UEFI مسیر ESP:</span>
+sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg</code></pre></div>
+      <div class="callout warning"><div class="ct">⚠️ هشدار</div>
+        <p>هرگز فایل <code>grub.cfg</code> را دستی ویرایش نکنید! فقط از <code>/etc/default/grub</code> تغییر دهید و با <code>grub2-mkconfig</code> بازسازی کنید؛ وگرنه تغییرات در بوت بعدی از بین می‌رود.</p>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Systemd Targets</h3>
+      <p>Targetها معادل سطح‌های اجرایی SysVinit هستند. پیش‌فرض اکثر سرورها <code>multi-user.target</code> است.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Target</th><th>معادل SysVinit</th><th>کاربرد</th></tr></thead>
+        <tbody>
+          <tr><td><code>multi-user.target</code></td><td>runlevel 3</td><td>چندکاربره، بدون GUI</td></tr>
+          <tr><td><code>graphical.target</code></td><td>runlevel 5</td><td>چندکاربره، با GUI</td></tr>
+          <tr><td><code>rescue.target</code></td><td>single (1)</td><td>حالت تعمیرات</td></tr>
+          <tr><td><code>reboot.target</code></td><td>6</td><td>ری‌استارت</td></tr>
+          <tr><td><code>poweroff.target</code></td><td>halt</td><td>خاموشی</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cmd"><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="systemctl get-default&#10;sudo systemctl set-default multi-user.target&#10;sudo systemctl isolate rescue.target&#10;systemctl list-units --type=target --all">⧉ کپی</button></div><pre><code>systemctl get-default                    <span style="opacity:.7"># target فعلی</span>
+sudo systemctl set-default multi-user.target
+sudo systemctl isolate rescue.target     <span style="opacity:.7"># ورود موقت</span>
+systemctl list-units --type=target --all</code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>مدیریت دستگاه‌ها و ماژول‌های هسته</h3>
+      <p>هسته لینوکس امکانات سخت‌افزاری را به‌صورت ماژول بارگذاری می‌کند. مدیریت ماژول با <code>modprobe</code> و مشاهده با <code>lsmod</code>.</p>
+      <div class="cmd with-label"><span class="label">شناسایی سخت‌افزار</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="lspci -nn&#10;lsusb&#10;lsblk&#10;lsmod&#10;modinfo &lt;module&gt;">⧉ کپی</button></div><pre><code>lspci -nn          <span style="opacity:.7"># دستگاه‌های PCI با ID</span>
+lsusb              <span style="opacity:.7"># دستگاه‌های USB</span>
+lsblk              <span style="opacity:.7"># بلوک‌دستگاه‌ها</span>
+lsmod              <span style="opacity:.7"># ماژول‌های بارگذاری‌شده</span>
+modinfo &lt;module&gt;    <span style="opacity:.7"># اطلاعات ماژول</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">مدیریت ماژول</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo modprobe &lt;module&gt;&#10;sudo modprobe -r &lt;module&gt;&#10;echo 'blacklist nouveau' | sudo tee /etc/modprobe.d/black.conf&#10;ls /etc/modules-load.d/">⧉ کپی</button></div><pre><code>sudo modprobe &lt;module&gt;               <span style="opacity:.7"># بارگذاری</span>
+sudo modprobe -r &lt;module&gt;            <span style="opacity:.7"># تخلیه</span>
+echo <span style="opacity:.7">"blacklist nouveau"</span> | sudo tee /etc/modprobe.d/black.conf
+ls /etc/modules-load.d/              <span style="opacity:.7"># ماژول‌های خودکار</span></code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>مدیریت حافظه و Swap</h3>
+      <p>موارد کلیدی در <code>free</code>: <code>available</code> مهم‌تر از <code>free</code> است، چون لینوکس حافظه آزاد را برای cache نگه می‌دارد و در صورت نیاز آزاد می‌کند.</p>
+      <div class="cmd"><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="free -h&#10;vmstat 1 5&#10;cat /proc/meminfo&#10;swapon --show&#10;sudo mkswap /dev/sdb1&#10;sudo swapon /dev/sdb1">⧉ کپی</button></div><pre><code>free -h            <span style="opacity:.7"># حافظه به‌صورت خوانا</span>
+vmstat 1 5         <span style="opacity:.7"># آمار هر ۱ ثانیه</span>
+cat /proc/meminfo  <span style="opacity:.7"># جزئیات</span>
+swapon --show      <span style="opacity:.7"># swap فعال</span>
+sudo mkswap /dev/sdb1   <span style="opacity:.7"># ساخت swap</span>
+sudo swapon /dev/sdb1   <span style="opacity:.7"># فعال‌سازی</span></code></pre></div>
+    </div>
+
+    <a href="#top" class="back-top">⬆ بازگشت به بالای صفحه</a>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section class="section" id="sec2">
+    <div class="section-header"><div class="icon">📦</div><div><h2>۲. نصب لینوکس و مدیریت بسته‌ها</h2><div class="sub">Linux Installation &amp; Package Management</div></div></div>
+
+    <div class="sub-section">
+      <h3>مقایسه سیستم‌های مدیریت بسته</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>ابزار</th><th>توزیع</th><th>فرمت</th><th>بانک اطلاعاتی</th></tr></thead>
+        <tbody>
+          <tr><td><code>apt</code>/<code>dpkg</code></td><td>Debian, Ubuntu</td><td><code>.deb</code></td><td><code>/var/lib/dpkg</code></td></tr>
+          <tr><td><code>dnf</code>/<code>yum</code>/<code>rpm</code></td><td>Fedora, RHEL, Rocky</td><td><code>.rpm</code></td><td><code>/var/lib/rpm</code></td></tr>
+          <tr><td><code>zypper</code></td><td>openSUSE</td><td><code>.rpm</code></td><td><code>/var/lib/rpm</code></td></tr>
+          <tr><td><code>pacman</code></td><td>Arch, Manjaro</td><td><code>.pkg.tar.zst</code></td><td><code>/var/lib/pacman</code></td></tr>
+          <tr><td><code>flatpak</code>/<code>snap</code></td><td>چندتوزیعی</td><td>sandbox</td><td>ایزوله</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>APT — Debian / Ubuntu</h3>
+      <div class="cmd with-label"><span class="label">نصب و حذف</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo apt update&#10;sudo apt install &lt;package&gt;&#10;sudo apt remove &lt;package&gt;&#10;sudo apt purge &lt;package&gt;&#10;sudo apt autoremove">⧉ کپی</button></div><pre><code>sudo apt update               <span style="opacity:.7"># به‌روزرسانی لیست</span>
+sudo apt install &lt;package&gt;    <span style="opacity:.7"># نصب</span>
+sudo apt remove &lt;package&gt;     <span style="opacity:.7"># حذف (پیکربندی می‌ماند)</span>
+sudo apt purge &lt;package&gt;      <span style="opacity:.7"># حذف کامل + پیکربندی</span>
+sudo apt autoremove           <span style="opacity:.7"># حذف وابستگی‌های اضافی</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">جستجو و ارتقا</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="apt search &lt;keyword&gt;&#10;apt show &lt;package&gt;&#10;apt list --installed&#10;sudo apt upgrade&#10;sudo apt full-upgrade&#10;sudo apt-mark hold &lt;package&gt;">⧉ کپی</button></div><pre><code>apt search &lt;keyword&gt;        <span style="opacity:.7"># جستجو</span>
+apt show &lt;package&gt;          <span style="opacity:.7"># اطلاعات</span>
+apt list --installed        <span style="opacity:.7"># نصب‌شده‌ها</span>
+sudo apt upgrade            <span style="opacity:.7"># ارتقا</span>
+sudo apt full-upgrade       <span style="opacity:.7"># ارتقای کامل</span>
+sudo apt-mark hold &lt;pkg&gt;    <span style="opacity:.7"># جلوگیری از ارتقا</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">dpkg — سطح پایین‌تر</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo dpkg -i &lt;package.deb&gt;&#10;sudo dpkg -r &lt;package&gt;&#10;sudo dpkg -P &lt;package&gt;&#10;dpkg -l | grep &lt;pkg&gt;&#10;dpkg -S /path/to/file&#10;dpkg -L &lt;package&gt;&#10;sudo dpkg --configure -a">⧉ کپی</button></div><pre><code>sudo dpkg -i &lt;package.deb&gt;   <span style="opacity:.7"># نصب فایل</span>
+sudo dpkg -r &lt;package&gt;        <span style="opacity:.7"># حذف</span>
+sudo dpkg -P &lt;package&gt;        <span style="opacity:.7"># حذف کامل</span>
+dpkg -l | grep &lt;pkg&gt;          <span style="opacity:.7"># وضعیت</span>
+dpkg -S /path/to/file         <span style="opacity:.7"># مالک فایل</span>
+dpkg -L &lt;package&gt;             <span style="opacity:.7"># فایل‌های بسته</span>
+sudo dpkg --configure -a      <span style="opacity:.7"># تعمیر ناقص</span></code></pre></div>
+      <div class="callout warning"><div class="ct">⚠️ هشدار</div><p><code>apt update</code> فقط لیست بسته‌ها را به‌روز می‌کند؛ ارتقای واقعی نیاز به <code>apt upgrade</code> دارد.</p></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>DNF / YUM — RHEL / Fedora / Rocky</h3>
+      <div class="cmd with-label"><span class="label">dnf</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo dnf install &lt;package&gt;&#10;sudo dnf remove &lt;package&gt;&#10;sudo dnf upgrade&#10;dnf search &lt;keyword&gt;&#10;dnf provides /usr/bin/curl&#10;dnf repolist&#10;dnf history">⧉ کپی</button></div><pre><code>sudo dnf install &lt;package&gt;    <span style="opacity:.7"># نصب</span>
+sudo dnf remove &lt;package&gt;     <span style="opacity:.7"># حذف</span>
+sudo dnf upgrade             <span style="opacity:.7"># ارتقا</span>
+dnf search &lt;keyword&gt;         <span style="opacity:.7"># جستجو</span>
+dnf provides /usr/bin/curl   <span style="opacity:.7"># کدام بسته؟</span>
+dnf repolist                 <span style="opacity:.7"># ریپازیتوری‌ها</span>
+dnf history                  <span style="opacity:.7"># تاریخچه</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">rpm — سطح پایین‌تر</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo rpm -ivh &lt;pkg.rpm&gt;&#10;sudo rpm -Uvh &lt;pkg.rpm&gt;&#10;sudo rpm -e &lt;package&gt;&#10;rpm -qa | grep &lt;pkg&gt;&#10;rpm -qf /path/to/file&#10;rpm -ql &lt;package&gt;&#10;rpm -V &lt;package&gt;">⧉ کپی</button></div><pre><code>sudo rpm -ivh &lt;pkg.rpm&gt;     <span style="opacity:.7"># نصب i=install</span>
+sudo rpm -Uvh &lt;pkg.rpm&gt;     <span style="opacity:.7"># ارتقا U=upgrade</span>
+sudo rpm -e &lt;package&gt;        <span style="opacity:.7"># حذف e=erase</span>
+rpm -qa | grep &lt;pkg&gt;         <span style="opacity:.7"># نصب‌شده‌ها</span>
+rpm -qf /path/to/file        <span style="opacity:.7"># مالک فایل</span>
+rpm -ql &lt;package&gt;            <span style="opacity:.7"># فایل‌های بسته</span>
+rpm -V &lt;package&gt;             <span style="opacity:.7"># بررسی صحت</span></code></pre></div>
+      <div class="callout tip"><div class="ct">💡 نکته</div><p><code>rpm -e</code> وابستگی‌ها را بررسی نمی‌کند؛ همیشه از <code>dnf/yum</code> استفاده کنید مگر اینکه مطمئن باشید.</p></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Flatpak و Snap</h3>
+      <div class="cmd with-label"><span class="label">Flatpak</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo&#10;flatpak install flathub org.mozilla.firefox&#10;flatpak run org.mozilla.firefox&#10;flatpak list&#10;flatpak update">⧉ کپی</button></div><pre><code>flatpak remote-add --if-not-exists flathub \
+    https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub org.mozilla.firefox
+flatpak run org.mozilla.firefox
+flatpak list
+flatpak update</code></pre></div>
+      <div class="cmd with-label"><span class="label">Snap</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo snap install &lt;package&gt;&#10;snap list&#10;snap info &lt;package&gt;&#10;sudo snap refresh&#10;sudo snap remove &lt;package&gt;">⧉ کپی</button></div><pre><code>sudo snap install &lt;package&gt;
+snap list
+snap info &lt;package&gt;
+sudo snap refresh
+sudo snap remove &lt;package&gt;</code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>مدیریت ریپازیتوری‌ها</h3>
+      <div class="cmd with-label"><span class="label">Debian / Ubuntu</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="ls /etc/apt/sources.list.d/&#10;cat /etc/apt/sources.list&#10;echo 'deb https://example.com/repo focal main' | sudo tee /etc/apt/sources.list.d/custom.list&#10;sudo apt update">⧉ کپی</button></div><pre><code>ls /etc/apt/sources.list.d/
+cat /etc/apt/sources.list
+echo <span style="opacity:.7">'deb https://example.com/repo focal main'</span> | \
+    sudo tee /etc/apt/sources.list.d/custom.list
+sudo apt update</code></pre></div>
+      <div class="cmd with-label"><span class="label">RHEL / Fedora</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo dnf install epel-release&#10;ls /etc/yum.repos.d/&#10;sudo dnf config-manager --add-repo https://example.com/repo.repo">⧉ کپی</button></div><pre><code>sudo dnf install epel-release
+ls /etc/yum.repos.d/
+sudo dnf config-manager --add-repo https://example.com/repo.repo</code></pre></div>
+    </div>
+
+    <a href="#top" class="back-top">⬆ بازگشت به بالای صفحه</a>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="section" id="sec3">
+    <div class="section-header"><div class="icon">⚙️</div><div><h2>۳. دستورات گنو و یونیکس</h2><div class="sub">GNU &amp; Unix Commands</div></div></div>
+
+    <div class="sub-section">
+      <h3>مدیریت فایل‌ها و دایرکتوری‌ها</h3>
+      <div class="cmd with-label"><span class="label">کپی / انتقال / حذف</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="cp -r &lt;src&gt; &lt;dst&gt;&#10;cp -a &lt;src&gt; &lt;dst&gt;&#10;mv -i &lt;src&gt; &lt;dst&gt;&#10;rm -rf &lt;dir&gt;&#10;ln -s &lt;target&gt; &lt;link&gt;&#10;ln &lt;target&gt; &lt;hardlink&gt;">⧉ کپی</button></div><pre><code>cp -r &lt;src&gt; &lt;dst&gt;      <span style="opacity:.7"># بازگشتی</span>
+cp -a &lt;src&gt; &lt;dst&gt;      <span style="opacity:.7"># حفظ attributes</span>
+mv -i &lt;src&gt; &lt;dst&gt;      <span style="opacity:.7"># انتقال با تأیید</span>
+rm -rf &lt;dir&gt;           <span style="opacity:.7"># اجبار (خطرناک!)</span>
+ln -s &lt;target&gt; &lt;link&gt;  <span style="opacity:.7"># لینک نمادین</span>
+ln &lt;target&gt; &lt;hard&gt;     <span style="opacity:.7"># لینک سخت</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">find — جستجوی پیشرفته</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="find /path -name '*.conf'&#10;find /path -type f -size +100M&#10;find /path -mtime -7&#10;find /path -perm 755&#10;find /path -exec grep -l 'error' {} \;&#10;sudo updatedb &amp;&amp; locate &lt;name&gt;">⧉ کپی</button></div><pre><code>find /path -name <span style="opacity:.7">'*.conf'</span>      <span style="opacity:.7"># بر اساس نام</span>
+find /path -type f -size +100M   <span style="opacity:.7"># بزرگ‌تر از ۱۰۰M</span>
+find /path -mtime -7             <span style="opacity:.7"># تغییر ۷ روز اخیر</span>
+find /path -perm 755             <span style="opacity:.7"># مجوز</span>
+find /path -exec grep -l <span style="opacity:.7">'error'</span> {} \;
+sudo updatedb &amp;&amp; locate &lt;name&gt;   <span style="opacity:.7"># سریع‌تر</span></code></pre></div>
+      <div class="callout tip"><div class="ct">💡 نکته</div><p><code>find</code> در لحظه جستجو می‌کند (دقیق اما کند)، <code>locate</code> از دیتابیس استفاده می‌کند (سریع اما نیاز به <code>updatedb</code> دارد).</p></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>کار با محتوای فایل و جریان‌ها</h3>
+      <div class="cmd with-label"><span class="label">مشاهده</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="head -n 20 file&#10;tail -n 20 file&#10;tail -f /var/log/syslog&#10;nl file&#10;less file&#10;wc -l file&#10;diff -u file1 file2">⧉ کپی</button></div><pre><code>head -n 20 file            <span style="opacity:.7"># ابتدا</span>
+tail -n 20 file            <span style="opacity:.7"># انتها</span>
+tail -f /var/log/syslog    <span style="opacity:.7"># زنده</span>
+nl file                    <span style="opacity:.7"># با شماره خط</span>
+less file                  <span style="opacity:.7"># مرورگر</span>
+wc -l file                 <span style="opacity:.7"># شمار خطوط</span>
+diff -u file1 file2        <span style="opacity:.7"># مقایسه</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">پردازش متن</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="cut -d: -f1 /etc/passwd&#10;sort -k3 -n file&#10;sort file | uniq -c&#10;sort file | uniq -d&#10;tr '[:lower:]' '[:upper:]' &lt; file&#10;find /tmp -name '*.tmp' | xargs rm">⧉ کپی</button></div><pre><code>cut -d: -f1 /etc/passwd       <span style="opacity:.7"># ستون با جداکننده</span>
+sort -k3 -n file              <span style="opacity:.7"># مرتب بر ستون ۳</span>
+sort file | uniq -c           <span style="opacity:.7"># شمارش تکرار</span>
+sort file | uniq -d           <span style="opacity:.7"># فقط تکراری‌ها</span>
+tr <span style="opacity:.7">'[:lower:]'</span> <span style="opacity:.7">'[:upper:]'</span> <span style="opacity:.7">&lt; file</span> <span style="opacity:.7"># تبدیل</span>
+find /tmp -name <span style="opacity:.7">'*.tmp'</span> | xargs rm</code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>grep — جستجوی الگو</h3>
+      <div class="cmd with-label"><span class="label">کاربرد پایه</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="grep -rn 'pattern' /path/&#10;grep -E 'regex' file&#10;grep -v 'pattern' file&#10;grep -A3 -B3 'pattern' file&#10;grep -c 'pattern' file&#10;grep -rl 'pattern' /path/">⧉ کپی</button></div><pre><code>grep -rn <span style="opacity:.7">'pattern'</span> /path/  <span style="opacity:.7"># بازگشتی + شماره خط</span>
+grep -E <span style="opacity:.7">'regex'</span> file       <span style="opacity:.7"># extended regex</span>
+grep -v <span style="opacity:.7">'pattern'</span> file    <span style="opacity:.7"># معکوس</span>
+grep -A3 -B3 <span style="opacity:.7">'x'</span> file     <span style="opacity:.7"># قبل و بعد</span>
+grep -c <span style="opacity:.7">'pattern'</span> file    <span style="opacity:.7"># شمارش</span>
+grep -rl <span style="opacity:.7">'x'</span> /path/       <span style="opacity:.7"># نام فایل‌ها</span></code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>awk و sed — قدرت پردازش متن</h3>
+      <div class="cmd with-label"><span class="label">awk</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="awk -F: '{print $1, $3}' /etc/passwd&#10;awk '$3 &gt;= 1000 {print $1}' /etc/passwd&#10;awk '{sum+=$1} END {print sum}' nums.txt&#10;awk -F: '{c[$7]++} END {for (k in c) print k, c[k]}' /etc/passwd">⧉ کپی</button></div><pre><code>awk -F: <span style="opacity:.7">'{print $1, $3}'</span> /etc/passwd    <span style="opacity:.7"># ستون‌ها</span>
+awk <span style="opacity:.7">'$3 &gt;= 1000 {print $1}'</span> /etc/passwd <span style="opacity:.7"># فیلتر</span>
+awk <span style="opacity:.7">'{sum+=$1} END {print sum}'</span> nums.txt <span style="opacity:.7"># جمع</span>
+awk -F: <span style="opacity:.7">'{c[$7]++} END {for (k in c) print k, c[k]}'</span> /etc/passwd</code></pre></div>
+      <div class="cmd with-label"><span class="label">sed</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sed -i 's/old/new/g' file&#10;sed '/^#/d' file&#10;sed -n '1,10p' file&#10;sed 's/[[:space:]]*$//' file&#10;sed -n '/error/p' file">⧉ کپی</button></div><pre><code>sed -i <span style="opacity:.7">'s/old/new/g'</span> file   <span style="opacity:.7"># جایگزینی در فایل</span>
+sed <span style="opacity:.7">'/^#/d'</span> file            <span style="opacity:.7"># حذف کامنت‌ها</span>
+sed -n <span style="opacity:.7">'1,10p'</span> file        <span style="opacity:.7"># خطوط ۱ تا ۱۰</span>
+sed <span style="opacity:.7">'s/[[:space:]]*$//'</span> file <span style="opacity:.7"># حذف فاصله انتهایی</span>
+sed -n <span style="opacity:.7">'/error/p'</span> file      <span style="opacity:.7"># فقط error</span></code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>مدیریت پروسس</h3>
+      <div class="cmd with-label"><span class="label">مشاهده و کنترل</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="ps aux --sort=-%cpu | head -10&#10;pstree -p&#10;kill &lt;PID&gt;&#10;kill -9 &lt;PID&gt;&#10;killall nginx&#10;nice -n 10 cmd&#10;renice -n -5 -p &lt;PID&gt;">⧉ کپی</button></div><pre><code>ps aux --sort=-%cpu | head -10   <span style="opacity:.7"># پرمصرف‌ترین CPU</span>
+pstree -p                        <span style="opacity:.7"># درخت پروسس</span>
+kill &lt;PID&gt;       <span style="opacity:.7"># SIGTERM (۱۵)</span>
+kill -9 &lt;PID&gt;    <span style="opacity:.7"># SIGKILL (۹) اجباری</span>
+killall nginx    <span style="opacity:.7"># بر اساس نام</span>
+nice -n 10 cmd   <span style="opacity:.7"># اولویت کمتر</span>
+renice -n -5 -p &lt;PID&gt;  <span style="opacity:.7"># تغییر اولویت</span></code></pre></div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>سیگنال</th><th>شماره</th><th>توضیح</th></tr></thead>
+        <tbody>
+          <tr><td>SIGHUP</td><td>1</td><td>ری‌لود / خروج ترمینال</td></tr>
+          <tr><td>SIGINT</td><td>2</td><td>Ctrl+C</td></tr>
+          <tr><td>SIGKILL</td><td>9</td><td>خاتمه اجباری (قابل رد نیست)</td></tr>
+          <tr><td>SIGTERM</td><td>15</td><td>خاتمه مودبانه (پیش‌فرض)</td></tr>
+          <tr><td>SIGSTOP</td><td>19</td><td>توقف (قابل رد نیست)</td></tr>
+          <tr><td>SIGCONT</td><td>18</td><td>ادامه</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout tip"><div class="ct">💡 نکته</div><p>SIGKILL و SIGSTOP قابل رد نیستند. اول همیشه SIGTERM را امتحان کنید، SIGKILL فقط آخرین راه است.</p></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>متغیرها و redirection</h3>
+      <div class="cmd with-label"><span class="label">متغیرها</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="env&#10;echo $HOME&#10;export EDITOR=vim&#10;export PATH=$PATH:/opt/myapp/bin&#10;echo $PATH | tr ':' '\n'">⧉ کپی</button></div><pre><code>env                     <span style="opacity:.7"># تمام متغیرها</span>
+echo $HOME
+export EDITOR=vim
+export PATH=$PATH:/opt/myapp/bin
+echo $PATH | tr <span style="opacity:.7">':'</span> <span style="opacity:.7">'\n'</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">redirection</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="cmd &gt; file 2&gt;&amp;1&#10;cmd &gt;&gt; file&#10;cmd 2&gt;/dev/null&#10;cmd &lt; input.txt&#10;cmd | tee output.txt">⧉ کپی</button></div><pre><code>cmd &gt; file 2&gt;&amp;1     <span style="opacity:.7"># stdout + stderr</span>
+cmd &gt;&gt; file        <span style="opacity:.7"># الحاق</span>
+cmd 2&gt;/dev/null    <span style="opacity:.7"># نادیده‌گرفتن خطا</span>
+cmd &lt; input.txt    <span style="opacity:.7"># ورودی از فایل</span>
+cmd | tee out.txt  <span style="opacity:.7"># نمایش + ذخیره</span></code></pre></div>
+    </div>
+
+    <a href="#top" class="back-top">⬆ بازگشت به بالای صفحه</a>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section class="section" id="sec4">
+    <div class="section-header"><div class="icon">💾</div><div><h2>۴. دیسک‌ها، پارتیشن‌بندی و فایل‌سیستم‌ها</h2><div class="sub">Disks, Partitioning, LVM, &amp; Filesystems</div></div></div>
+
+    <div class="sub-section">
+      <h3>شناسایی دیسک‌ها</h3>
+      <div class="cmd with-label"><span class="label">ابزارهای شناسایی</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="lsblk -f&#10;blkid&#10;fdisk -l&#10;parted -l&#10;iostat -xz 1&#10;smartctl -a /dev/sda">⧉ کپی</button></div><pre><code>lsblk -f          <span style="opacity:.7"># درختی + UUID</span>
+blkid             <span style="opacity:.7"># UUID و نوع</span>
+fdisk -l          <span style="opacity:.7"># پارتیشن‌ها</span>
+parted -l         <span style="opacity:.7"># MBR + GPT</span>
+iostat -xz 1      <span style="opacity:.7"># آمار IO</span>
+smartctl -a /dev/sda   <span style="opacity:.7"># وضعیت SMART</span></code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>پارتیشن‌بندی با fdisk و parted</h3>
+      <div class="cmd with-label"><span class="label">fdisk تعاملی</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo fdisk /dev/sdb&#10;sudo partprobe /dev/sdb">⧉ کپی</button></div><pre><code>sudo fdisk /dev/sdb
+<span style="opacity:.7"># p=print  n=new  d=delete  t=type  w=write  q=quit</span>
+sudo partprobe /dev/sdb   <span style="opacity:.7"># اعمال بدون ری‌استارت</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">parted</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo parted /dev/sdb mklabel gpt&#10;sudo parted /dev/sdb mkpart primary ext4 1MiB 100%&#10;sudo parted /dev/sdb print">⧉ کپی</button></div><pre><code>sudo parted /dev/sdb mklabel gpt
+sudo parted /dev/sdb mkpart primary ext4 1MiB 100%
+sudo parted /dev/sdb print</code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>ایجاد فایل‌سیستم (mkfs)</h3>
+      <div class="cmd with-label"><span class="label">انواع mkfs</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="mkfs.ext4 /dev/sdb1&#10;mkfs.xfs /dev/sdb1&#10;mkfs.btrfs /dev/sdb1&#10;mkfs.vfat -F 32 /dev/sdb1&#10;mkfs.ext4 -L MYDATA /dev/sdb1&#10;mkfs.ext4 -m 1 /dev/sdb1">⧉ کپی</button></div><pre><code>mkfs.ext4 /dev/sdb1         <span style="opacity:.7"># پیش‌فرض Ubuntu</span>
+mkfs.xfs /dev/sdb1          <span style="opacity:.7"># پیش‌فرض RHEL</span>
+mkfs.btrfs /dev/sdb1        <span style="opacity:.7"># snapshot + compression</span>
+mkfs.vfat -F 32 /dev/sdb1   <span style="opacity:.7"># FAT32 (USB/ESP)</span>
+mkfs.ext4 -L MYDATA /dev/sdb1 <span style="opacity:.7"># label</span>
+mkfs.ext4 -m 1 /dev/sdb1     <span style="opacity:.7"># 1% رزرو root</span></code></pre></div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>ویژگی</th><th>ext4</th><th>XFS</th><th>Btrfs</th><th>vfat</th></tr></thead>
+        <tbody>
+          <tr><td>حداکثر فایل</td><td>16 TiB</td><td>8 EiB</td><td>16 EiB</td><td>4 GiB</td></tr>
+          <tr><td>Snapshot</td><td>خیر</td><td>خیر</td><td>بله</td><td>خیر</td></tr>
+          <tr><td>Compression</td><td>خیر</td><td>خیر</td><td>بله</td><td>خیر</td></tr>
+          <tr><td>Journaling</td><td>بله</td><td>بله</td><td>CoW</td><td>خیر</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>LVM — حجم‌های منطقی</h3>
+      <p>زنجیره LVM: <code>Physical Volume (PV)</code> ← <code>Volume Group (VG)</code> ← <code>Logical Volume (LV)</code>. مزیت اصلی: تغییر اندازه حجیمی و snapshot.</p>
+      <div class="cmd with-label"><span class="label">ایجاد LVM</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo pvcreate /dev/sdb&#10;sudo vgcreate myvg /dev/sdb&#10;sudo lvcreate -n mylv -L 10G myvg&#10;sudo mkfs.ext4 /dev/myvg/mylv&#10;sudo mount /dev/myvg/mylv /data&#10;echo '/dev/myvg/mylv /data ext4 defaults 0 2' | sudo tee -a /etc/fstab">⧉ کپی</button></div><pre><code>sudo pvcreate /dev/sdb                    <span style="opacity:.7"># ۱. PV</span>
+sudo vgcreate myvg /dev/sdb               <span style="opacity:.7"># ۲. VG</span>
+sudo lvcreate -n mylv -L 10G myvg         <span style="opacity:.7"># ۳. LV</span>
+sudo mkfs.ext4 /dev/myvg/mylv            <span style="opacity:.7"># ۴. فایل‌سیستم</span>
+sudo mount /dev/myvg/mylv /data
+echo <span style="opacity:.7">'/dev/myvg/mylv /data ext4 defaults 0 2'</span> | sudo tee -a /etc/fstab</code></pre></div>
+      <div class="cmd with-label"><span class="label">افزایش حجم (مهم!)</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo lvextend -L +5G /dev/myvg/mylv&#10;sudo resize2fs /dev/myvg/mylv&#10;sudo xfs_growfs /dev/myvg/mylv">⧉ کپی</button></div><pre><code>sudo lvextend -L +5G /dev/myvg/mylv  <span style="opacity:.7"># افزایش LV</span>
+<span style="opacity:.7"># سپس فایل‌سیستم را بزرگ کنید:</span>
+sudo resize2fs /dev/myvg/mylv   <span style="opacity:.7"># ext4</span>
+sudo xfs_growfs /dev/myvg/mylv  <span style="opacity:.7"># XFS</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">Snapshot</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo lvcreate -s -n mybackup -L 2G /dev/myvg/mylv&#10;sudo mount -o ro /dev/myvg/mybackup /mnt/snap&#10;sudo lvremove /dev/myvg/mybackup">⧉ کپی</button></div><pre><code>sudo lvcreate -s -n mybackup -L 2G /dev/myvg/mylv
+sudo mount -o ro /dev/myvg/mybackup /mnt/snap
+sudo lvremove /dev/myvg/mybackup   <span style="opacity:.7"># حذف snapshot</span></code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>mdadm — RAID نرم‌افزاری</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>نوع</th><th>نام</th><th>حداقل دیسک</th><th>تحمل خرابی</th></tr></thead>
+        <tbody>
+          <tr><td>RAID 0</td><td>Striping</td><td>۲</td><td>هیچ</td></tr>
+          <tr><td>RAID 1</td><td>Mirroring</td><td>۲</td><td>۱ دیسک</td></tr>
+          <tr><td>RAID 5</td><td>Parity</td><td>۳</td><td>۱ دیسک</td></tr>
+          <tr><td>RAID 6</td><td>Double Parity</td><td>۴</td><td>۲ دیسک</td></tr>
+          <tr><td>RAID 10</td><td>Mirror+Strip</td><td>۴</td><td>۱ در هر جفت</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cmd with-label"><span class="label">ایجاد و مدیریت</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb /dev/sdc&#10;cat /proc/mdstat&#10;sudo mdadm --detail /dev/md0&#10;sudo mdadm --manage /dev/md0 --fail /dev/sdb&#10;sudo mdadm --manage /dev/md0 --add /dev/sde">⧉ کپی</button></div><pre><code>sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb /dev/sdc
+cat /proc/mdstat               <span style="opacity:.7"># وضعیت</span>
+sudo mdadm --detail /dev/md0   <span style="opacity:.7"># جزئیات</span>
+sudo mdadm --manage /dev/md0 --fail /dev/sdb
+sudo mdadm --manage /dev/md0 --add /dev/sde</code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>fstab و Swap</h3>
+      <div class="cmd with-label"><span class="label">fstab</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="blkid /dev/sdb1&#10;sudo findmnt --verify&#10;sudo mount -a&#10;sudo mount -o remount,rw /data">⧉ کپی</button></div><pre><code>blkid /dev/sdb1               <span style="opacity:.7"># مشاهده UUID</span>
+sudo findmnt --verify         <span style="opacity:.7"># بررسی صحت fstab</span>
+sudo mount -a                  <span style="opacity:.7"># mount همه ردیف‌ها</span>
+sudo mount -o remount,rw /data <span style="opacity:.7"># remount</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">ساخت Swap File</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo fallocate -l 4G /swapfile&#10;sudo chmod 600 /swapfile&#10;sudo mkswap /swapfile&#10;sudo swapon /swapfile&#10;echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab">⧉ کپی</button></div><pre><code>sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile     <span style="opacity:.7"># ضروری (امنیت)</span>
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo <span style="opacity:.7">'/swapfile none swap sw 0 0'</span> | sudo tee -a /etc/fstab</code></pre></div>
+      <div class="callout danger"><div class="ct">🔴 مهم</div><p>بدون <code>chmod 600</code>، <code>swapon</code> فایل swap را نمی‌پذیرد — یک تله رایج در آزمون.</p></div>
+    </div>
+
+    <a href="#top" class="back-top">⬆ بازگشت به بالای صفحه</a>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section class="section" id="sec5">
+    <div class="section-header"><div class="icon">🐚</div><div><h2>۵. شل، اسکریپت‌نویسی و پایگاه داده</h2><div class="sub">Shells, Scripting &amp; SQL</div></div></div>
+
+    <div class="sub-section">
+      <h3>متغیرها و عملگرها در Bash</h3>
+      <div class="cmd with-label"><span class="label">متغیرها</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="VAR='value'&#10;RESULT=$(command)&#10;NUM=$((5 + 3))&#10;ARR=('a' 'b' 'c')&#10;echo ${#VAR}&#10;echo ${VAR:0:3}&#10;echo ${VAR^^}">⧉ کپی</button></div><pre><code>VAR=<span style="opacity:.7">'value'</span>            <span style="opacity:.7"># متغیر</span>
+RESULT=$(command)     <span style="opacity:.7"># از خروجی</span>
+NUM=$((5 + 3))        <span style="opacity:.7"># محاسبه</span>
+ARR=(<span style="opacity:.7">'a'</span> <span style="opacity:.7">'b'</span> <span style="opacity:.7">'c'</span>)       <span style="opacity:.7"># آرایه</span>
+echo ${#VAR}          <span style="opacity:.7"># طول رشته</span>
+echo ${VAR:0:3}       <span style="opacity:.7"># substring</span>
+echo ${VAR^^}         <span style="opacity:.7"># به بزرگ</span></code></pre></div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>عملگر</th><th>نوع</th><th>توضیح</th></tr></thead>
+        <tbody>
+          <tr><td><code>-eq -ne -gt -lt -ge -le</code></td><td>عددی</td><td>مقایسه اعداد</td></tr>
+          <tr><td><code>= == !=</code></td><td>رشته‌ای</td><td>مقایسه رشته</td></tr>
+          <tr><td><code>-z -n</code></td><td>رشته‌ای</td><td>خالی / غیرخالی</td></tr>
+          <tr><td><code>-f -d -e -r -w -x -L</code></td><td>فایل</td><td>وضعیت فایل</td></tr>
+          <tr><td><code>-nt -ot</code></td><td>فایل</td><td>جدیدتر / قدیمی‌تر</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>ساختارهای کنترلی</h3>
+      <div class="cmd with-label"><span class="label">if / for / while / case</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="if [[ $VAR == 'prod' ]]; then&#10;  echo Production&#10;fi&#10;&#10;for i in 1 2 3; do&#10;  echo $i&#10;done&#10;&#10;n=0; while [[ $n -lt 5 ]]; do echo $n; ((n++)); done&#10;&#10;case $x in a) echo A;; *) echo other;; esac">⧉ کپی</button></div><pre><code>if [[ $VAR == <span style="opacity:.7">'prod'</span> ]]; then
+  echo Production
+fi
+
+for i in 1 2 3; do
+  echo $i
+done
+
+n=0
+while [[ $n -lt 5 ]]; do echo $n; ((n++)); done
+
+case $x in a) echo A;; *) echo other;; esac</code></pre></div>
+      <div class="callout tip"><div class="ct">💡 نکته</div><p>در آزمون از <code>[[ ]]</code> به‌جای <code>[ ]</code> استفاده کنید — از regex، <code>&amp;&amp;</code> و حروف‌بزرگ‌سازی پشتیبانی می‌کند و ایمن‌تر است.</p></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>توابع و مدیریت خطا</h3>
+      <div class="cmd with-label"><span class="label">اسکریپت نمونه</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="#!/bin/bash&#10;set -euo pipefail&#10;say_hi() { echo &quot;Hello, $1&quot;; }&#10;tmp=$(mktemp)&#10;trap 'rm -f $tmp' EXIT&#10;say_hi &quot;$USER&quot;&#10;echo &quot;Script: $0, Args: $#, PID: $$&quot;">⧉ کپی</button></div><pre><code><span style="opacity:.7">#!/bin/bash</span>
+set -euo pipefail     <span style="opacity:.7"># خروج در خطا + متغیر نامشخص</span>
+say_hi() { echo <span style="opacity:.7">"Hello, $1"</span>; }
+tmp=$(mktemp)
+trap <span style="opacity:.7">'rm -f $tmp'</span> EXIT   <span style="opacity:.7"># پاک‌سازی هنگام خروج</span>
+say_hi <span style="opacity:.7">"$USER"</span>
+echo <span style="opacity:.7">"Script: $0, Args: $#, PID: $$"</span></code></pre></div>
+      <div class="callout tip"><div class="ct">💡 نکته</div><p>آرگومان‌های ویژه: <code>$0</code> نام اسکریپت، <code>$1-$9</code> آرگومان‌ها، <code>$#</code> تعداد، <code>$@</code> همه، <code>$?</code> کد خروج، <code>$$</code> PID.</p></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>SQLite — پایگاه داده</h3>
+      <div class="cmd with-label"><span class="label">دستورات SQL</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sqlite3 app.db&#10;CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT NOT NULL, email TEXT UNIQUE);&#10;INSERT INTO users (name, email) VALUES ('Ali', 'ali@example.com');&#10;SELECT * FROM users WHERE name = 'Ali';&#10;UPDATE users SET email = 'n@e.com' WHERE name = 'Ali';&#10;DELETE FROM users WHERE name = 'Sara';&#10;SELECT COUNT(*) FROM users;">⧉ کپی</button></div><pre><code>sqlite3 app.db
+
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE
+);
+INSERT INTO users (name, email) VALUES (<span style="opacity:.7">'Ali'</span>, <span style="opacity:.7">'ali@example.com'</span>);
+SELECT * FROM users WHERE name = <span style="opacity:.7">'Ali'</span>;
+UPDATE users SET email = <span style="opacity:.7">'new@example.com'</span> WHERE name = <span style="opacity:.7">'Ali'</span>;
+DELETE FROM users WHERE name = <span style="opacity:.7">'Sara'</span>;
+SELECT COUNT(*) FROM users;</code></pre></div>
+      <div class="cmd with-label"><span class="label">دستورات شل</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy=".mode column&#10;.headers on&#10;.tables&#10;.schema users&#10;.quit">⧉ کپی</button></div><pre><code>.mode column      <span style="opacity:.7"># خروجی جدولی</span>
+.headers on       <span style="opacity:.7"># نمایش هدر</span>
+.tables           <span style="opacity:.7"># لیست جداول</span>
+.schema users     <span style="opacity:.7"># ساختار جدول</span>
+.quit</code></pre></div>
+    </div>
+
+    <a href="#top" class="back-top">⬆ بازگشت به بالای صفحه</a>
+  </section>
+
+  <!-- SECTION 6 -->
+  <section class="section" id="sec6">
+    <div class="section-header"><div class="icon">🖱️</div><div><h2>۶. رابط کاربری و دسکتاپ</h2><div class="sub">User Interfaces &amp; Desktops</div></div></div>
+
+    <div class="sub-section">
+      <h3>X11 در برابر Wayland</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>ویژگی</th><th>X11 (X.Org)</th><th>Wayland</th></tr></thead>
+        <tbody>
+          <tr><td>معماری</td><td>Client-Server</td><td>Direct rendering</td></tr>
+          <tr><td>امنیت</td><td>کم (دید متقابل)</td><td>بالا (ایزوله)</td></tr>
+          <tr><td>پروتکل</td><td>TCP + Unix socket</td><td>فقط Unix socket</td></tr>
+          <tr><td>پیش‌فرض</td><td>قدیمی‌تر</td><td>Fedora, Ubuntu 22.04+</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cmd with-label"><span class="label">شناسایی session</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="echo $XDG_SESSION_TYPE&#10;echo $DISPLAY&#10;ssh -X user@server&#10;ls /usr/share/xsessions/">⧉ کپی</button></div><pre><code>echo $XDG_SESSION_TYPE   <span style="opacity:.7"># x11 یا wayland</span>
+echo $DISPLAY            <span style="opacity:.7"># مثل :0</span>
+ssh -X user@server       <span style="opacity:.7"># forward X11</span>
+ls /usr/share/xsessions/  <span style="opacity:.7"># session‌ها</span></code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>tmux و screen — چند-جلسه</h3>
+      <div class="cmd with-label"><span class="label">tmux</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="tmux new -s mysession&#10;tmux attach -t mysession&#10;tmux ls&#10;tmux kill-session -t mysession">⧉ کپی</button></div><pre><code>tmux new -s mysession          <span style="opacity:.7"># session</span>
+tmux attach -t mysession       <span style="opacity:.7"># اتصال مجدد</span>
+tmux ls
+tmux kill-session -t mysession
+<span style="opacity:.7"># Ctrl+b:  d=detach  c=پنجره  %=تقسیم عمودی  &quot;=تقسیم افقی</span></code></pre></div>
+      <div class="callout tip"><div class="ct">💡 نکته</div><p>با tmux جلسه‌های طولانی SSH را زنده نگه دارید — اگر اتصال قطع شود، session در سرور باقی می‌ماند.</p></div>
+    </div>
+
+    <a href="#top" class="back-top">⬆ بازگشت به بالای صفحه</a>
+  </section>
+
+  <div class="divider"><span>آزمون ۱۰۲</span></div>
+
+  <!-- SECTION 7 -->
+  <section class="section" id="sec7">
+    <div class="section-header"><div class="icon">👥</div><div><h2>۷. وظایف مدیریتی و دسترسی‌ها</h2><div class="sub">Admin Tasks, Users, Permissions &amp; Quotas</div></div></div>
+
+    <div class="sub-section">
+      <h3>مدیریت کاربران و گروه‌ها</h3>
+      <div class="cmd with-label"><span class="label">ایجاد / حذف کاربر</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo useradd -m -s /bin/bash -G sudo john&#10;sudo passwd john&#10;sudo usermod -aG docker john&#10;sudo chage -M 90 john&#10;sudo userdel -r john&#10;id john">⧉ کپی</button></div><pre><code>sudo useradd -m -s /bin/bash -G sudo john  <span style="opacity:.7"># Ubuntu</span>
+sudo passwd john                          <span style="opacity:.7"># رمز</span>
+sudo usermod -aG docker john              <span style="opacity:.7"># گروه اضافه (-a!)</span>
+sudo chage -M 90 john                     <span style="opacity:.7"># انقضای رمز ۹۰ روز</span>
+sudo userdel -r john                      <span style="opacity:.7"># حذف + home</span>
+id john</code></pre></div>
+      <div class="cmd with-label"><span class="label">گروه‌ها</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo groupadd developers&#10;sudo gpasswd -a john developers&#10;sudo gpasswd -d john developers&#10;groups john&#10;sudo groupdel developers">⧉ کپی</button></div><pre><code>sudo groupadd developers
+sudo gpasswd -a john developers    <span style="opacity:.7"># add</span>
+sudo gpasswd -d john developers    <span style="opacity:.7"># remove</span>
+groups john
+sudo groupdel developers</code></pre></div>
+      <div class="callout warning"><div class="ct">⚠️ هشدار</div><p>در <code>usermod -aG</code> حتماً <code>-a</code> را بگذارید؛ بدون آن کاربر از تمام گروه‌های قبلی حذف می‌شود.</p></div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>فایل</th><th>محتوا</th></tr></thead>
+        <tbody>
+          <tr><td><code>/etc/passwd</code></td><td>کاربران: name:x:UID:GID:home:shell</td></tr>
+          <tr><td><code>/etc/shadow</code></td><td>رمز هش‌شده + سیاست رمز</td></tr>
+          <tr><td><code>/etc/group</code></td><td>گروه‌ها: name:x:GID:members</td></tr>
+          <tr><td><code>/etc/skel</code></td><td>قالب دایرکتوری خانه</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>مجوزهای فایل — Permissions</h3>
+      <p>ساختار: <code>نوع فایل + مالک + گروه + سایرین</code>. مقادیر عددی: r=4, w=2, x=1.</p>
+      <div class="cmd with-label"><span class="label">chmod / chown</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="chmod 755 script.sh&#10;chmod 644 file.txt&#10;chmod u+x script.sh&#10;chmod -R 755 /var/www&#10;chown john:developers file&#10;chown -R john:www /var/www&#10;chgrp developers file">⧉ کپی</button></div><pre><code>chmod 755 script.sh   <span style="opacity:.7"># rwxr-xr-x</span>
+chmod 644 file.txt    <span style="opacity:.7"># rw-r--r--</span>
+chmod u+x script.sh   <span style="opacity:.7"># افزودن x مالک</span>
+chmod -R 755 /var/www <span style="opacity:.7"># بازگشتی</span>
+chown john:developers file
+chown -R john:www /var/www
+chgrp developers file</code></pre></div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>مجوز خاص</th><th>عدد</th><th>معنا</th></tr></thead>
+        <tbody>
+          <tr><td>SUID</td><td>4000</td><td>اجرا با مجوز مالک (مثل <code>passwd</code>)</td></tr>
+          <tr><td>SGID</td><td>2000</td><td>اجرا با گروه / ارث گروه در دایرکتوری</td></tr>
+          <tr><td>Sticky Bit</td><td>1000</td><td>فقط مالک حذف کند (مثل <code>/tmp</code>)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cmd with-label"><span class="label">مجوزهای خاص</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="chmod 4755 script.sh   # SUID&#10;chmod 2755 dir/        # SGID&#10;chmod 1777 /tmp        # Sticky&#10;find / -perm -4000 -type f 2&gt;/dev/null">⧉ کپی</button></div><pre><code>chmod 4755 script.sh    <span style="opacity:.7"># SUID</span>
+chmod 2755 dir/         <span style="opacity:.7"># SGID</span>
+chmod 1777 /tmp         <span style="opacity:.7"># Sticky bit</span>
+find / -perm -4000 -type f 2&gt;/dev/null   <span style="opacity:.7"># یافتن SUID</span></code></pre></div>
+      <div class="callout warning"><div class="ct">⚠️ هشدار</div><p>فایل‌های SUID با مجوز root اجرا می‌شوند. هرگز روی فایل‌های غیرضروری ندهید و مرتباً بررسی کنید.</p></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>ACL — کنترل دسترسی دقیق</h3>
+      <div class="cmd with-label"><span class="label">setfacl / getfacl</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="getfacl /data/file&#10;setfacl -m u:john:rwx /data/file&#10;setfacl -m g:dev:rx /data/file&#10;setfacl -x u:john /data/file&#10;setfacl -b /data/file&#10;setfacl -d -m g:dev:rx /data/">⧉ کپی</button></div><pre><code>getfacl /data/file                <span style="opacity:.7"># مشاهده</span>
+setfacl -m u:john:rwx /data/file  <span style="opacity:.7"># دسترسی کاربر خاص</span>
+setfacl -m g:dev:rx /data/file    <span style="opacity:.7"># دسترسی گروه خاص</span>
+setfacl -x u:john /data/file      <span style="opacity:.7"># حذف</span>
+setfacl -b /data/file             <span style="opacity:.7"># حذف همه</span>
+setfacl -d -m g:dev:rx /data/     <span style="opacity:.7"># ACL پیش‌فرض</span></code></pre></div>
+      <div class="callout tip"><div class="ct">💡 نکته</div><p>علامت <code>+</code> در انتهای مجوزهای <code>ls -la</code> (مثل <code>-rw-rwx---+</code>) یعنی فایل ACL دارد.</p></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Quota و sudo و umask</h3>
+      <div class="cmd with-label"><span class="label">Quota</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo quotacheck -cugm /data&#10;sudo quotaon /data&#10;sudo setquota -u john 1G 2G 0 0 /data&#10;quota -u john&#10;sudo repquota /data">⧉ کپی</button></div><pre><code><span style="opacity:.7"># fstab: defaults,usrquota,grpquota</span>
+sudo quotacheck -cugm /data
+sudo quotaon /data
+sudo setquota -u john 1G 2G 0 0 /data  <span style="opacity:.7"># soft=1G hard=2G</span>
+quota -u john
+sudo repquota /data</code></pre></div>
+      <div class="cmd with-label"><span class="label">sudo</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo visudo&#10;# user ALL=(ALL) NOPASSWD: ALL&#10;# %wheel ALL=(ALL) ALL&#10;# user ALL=(root) /usr/bin/systemctl restart nginx&#10;sudo -l">⧉ کپی</button></div><pre><code>sudo visudo    <span style="opacity:.7"># ویرایش امن</span>
+<span style="opacity:.7"># user  ALL=(ALL)  NOPASSWD: ALL</span>
+<span style="opacity:.7"># %wheel ALL=(ALL) ALL</span>
+<span style="opacity:.7"># user ALL=(root) /usr/bin/systemctl restart nginx</span>
+sudo -l        <span style="opacity:.7"># دسترسی‌های خود</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">umask</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="umask&#10;umask 027&#10;# فایل: 666-027=640 | دایرکتوری: 777-027=750&#10;echo 'umask 027' &gt;&gt; ~/.bashrc">⧉ کپی</button></div><pre><code>umask            <span style="opacity:.7"># معمولاً 0022</span>
+umask 027
+<span style="opacity:.7"># فایل: 666-027=640  دایرکتوری: 777-027=750</span>
+echo <span style="opacity:.7">'umask 027'</span> &gt;&gt; ~/.bashrc</code></pre></div>
+    </div>
+
+    <a href="#top" class="back-top">⬆ بازگشت به بالای صفحه</a>
+  </section>
+
+  <!-- SECTION 8 -->
+  <section class="section" id="sec8">
+    <div class="section-header"><div class="icon">🚀</div><div><h2>۸. سرویس‌های ضروری سیستم</h2><div class="sub">Essential System Services — Systemd, Logs, Cron, Time</div></div></div>
+
+    <div class="sub-section">
+      <h3>Systemd — مدیریت سرویس‌ها</h3>
+      <div class="cmd with-label"><span class="label">کنترل سرویس</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo systemctl start|stop|restart|reload nginx&#10;sudo systemctl enable --now nginx&#10;sudo systemctl status nginx&#10;systemctl is-active nginx&#10;systemctl is-enabled nginx&#10;systemctl list-units --type=service --all">⧉ کپی</button></div><pre><code>sudo systemctl start|stop|restart|reload nginx
+sudo systemctl enable --now nginx   <span style="opacity:.7"># فعال + شروع</span>
+sudo systemctl status nginx
+systemctl is-active nginx
+systemctl is-enabled nginx
+systemctl list-units --type=service --all</code></pre></div>
+      <div class="cmd with-label"><span class="label">ایجاد service سفارشی</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo tee /etc/systemd/system/app.service &lt;&lt;'EOF'&#10;[Unit]&#10;Description=My App&#10;After=network.target&#10;&#10;[Service]&#10;Type=simple&#10;User=appuser&#10;ExecStart=/opt/app/start.sh&#10;Restart=on-failure&#10;RestartSec=5&#10;&#10;[Install]&#10;WantedBy=multi-user.target&#10;EOF&#10;sudo systemctl daemon-reload&#10;sudo systemctl enable --now app">⧉ کپی</button></div><pre><code>sudo tee /etc/systemd/system/app.service &lt;&lt;<span style="opacity:.7">'EOF'</span>
+[Unit]
+Description=My App
+After=network.target
+
+[Service]
+Type=simple
+User=appuser
+ExecStart=/opt/app/start.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo systemctl daemon-reload
+sudo systemctl enable --now app</code></pre></div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Type</th><th>توضیح</th></tr></thead>
+        <tbody>
+          <tr><td><code>simple</code></td><td>پروسس اصلی (پیش‌فرض)</td></tr>
+          <tr><td><code>forking</code></td><td>پروسس fork شده</td></tr>
+          <tr><td><code>oneshot</code></td><td>اجرا و پایان (اسکریپت بوت)</td></tr>
+          <tr><td><code>notify</code></td><td>اطلاع‌رسانی آمادگی</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Journald و Journalctl</h3>
+      <div class="cmd with-label"><span class="label">مشاهده لاگ</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="journalctl -u nginx&#10;journalctl -u nginx -f&#10;journalctl -b -1&#10;journalctl --since '1 hour ago'&#10;journalctl -p err&#10;journalctl -n 50 --no-pager&#10;sudo journalctl --vacuum-size=500M">⧉ کپی</button></div><pre><code>journalctl -u nginx            <span style="opacity:.7"># سرویس خاص</span>
+journalctl -u nginx -f         <span style="opacity:.7"># زنده</span>
+journalctl -b -1               <span style="opacity:.7"># بوت قبلی</span>
+journalctl --since <span style="opacity:.7">'1 hour ago'</span>
+journalctl -p err              <span style="opacity:.7"># فقط خطا</span>
+journalctl -n 50 --no-pager
+sudo journalctl --vacuum-size=500M</code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Rsyslog — لاگ کلاسیک</h3>
+      <div class="cmd with-label"><span class="label">فایل‌های لاگ</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="tail -f /var/log/syslog&#10;tail -f /var/log/messages&#10;tail -f /var/log/auth.log&#10;tail -f /var/log/secure&#10;cat /etc/rsyslog.conf">⧉ کپی</button></div><pre><code>tail -f /var/log/syslog     <span style="opacity:.7"># عمومی (Debian)</span>
+tail -f /var/log/messages   <span style="opacity:.7"># عمومی (RHEL)</span>
+tail -f /var/log/auth.log   <span style="opacity:.7"># احراز هویت</span>
+tail -f /var/log/secure     <span style="opacity:.7"># احراز هویت (RHEL)</span>
+cat /etc/rsyslog.conf</code></pre></div>
+      <div class="callout note"><div class="ct">📌 فرمت rsyslog</div>
+        <p><code>facility.priority /path/to/log</code><br>Priority: emerg, alert, crit, err, warning, notice, info, debug<br>مثال: <code>authpriv.* /var/log/secure</code></p>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Cron و systemd timer</h3>
+      <div class="cmd with-label"><span class="label">crontab</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="crontab -e&#10;crontab -l&#10;sudo crontab -u www-data -e&#10;# */5 * * * * /path/cmd&#10;# 30 2 * * * /path/backup.sh&#10;# 0 8 * * 1 /path/report.sh">⧉ کپی</button></div><pre><code>crontab -e        <span style="opacity:.7"># ویرایش</span>
+crontab -l        <span style="opacity:.7"># نمایش</span>
+sudo crontab -u www-data -e
+<span style="opacity:.7"># format: minute hour day month weekday command</span>
+<span style="opacity:.7"># */5 * * * *   هر ۵ دقیقه</span>
+<span style="opacity:.7"># 30 2 * * *    هر روز ۲:۳۰</span>
+<span style="opacity:.7"># 0 8 * * 1     دوشنبه‌ها ۸</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">systemd timer</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo tee /etc/systemd/system/backup.timer &lt;&lt;'EOF'&#10;[Unit]&#10;Description=Daily backup&#10;&#10;[Timer]&#10;OnCalendar=*-*-* 02:30:00&#10;Persistent=true&#10;&#10;[Install]&#10;WantedBy=timers.target&#10;EOF&#10;sudo systemctl enable --now backup.timer&#10;systemctl list-timers">⧉ کپی</button></div><pre><code>sudo tee /etc/systemd/system/backup.timer &lt;&lt;<span style="opacity:.7">'EOF'</span>
+[Unit]
+Description=Daily backup
+
+[Timer]
+OnCalendar=*-*-* 02:30:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+sudo systemctl enable --now backup.timer
+systemctl list-timers</code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>مدیریت زمان (Time) و NTP</h3>
+      <div class="cmd with-label"><span class="label">timedatectl و chrony</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="timedatectl&#10;sudo timedatectl set-timezone Asia/Tehran&#10;sudo timedatectl set-ntp true&#10;sudo systemctl status chronyd&#10;chronyc sources -v&#10;sudo hwclock --show">⧉ کپی</button></div><pre><code>timedatectl                        <span style="opacity:.7"># وضعیت</span>
+sudo timedatectl set-timezone Asia/Tehran
+sudo timedatectl set-ntp true      <span style="opacity:.7"># فعال NTP</span>
+sudo systemctl status chronyd
+chronyc sources -v                 <span style="opacity:.7"># منابع NTP</span>
+sudo hwclock --show                <span style="opacity:.7"># ساعت سخت‌افزاری</span></code></pre></div>
+    </div>
+
+    <a href="#top" class="back-top">⬆ بازگشت به بالای صفحه</a>
+  </section>
+
+  <!-- SECTION 9 -->
+  <section class="section" id="sec9">
+    <div class="section-header"><div class="icon">🌐</div><div><h2>۹. مبانی شبکه</h2><div class="sub">Networking Fundamentals</div></div></div>
+
+    <div class="sub-section">
+      <h3>پیکربندی IP</h3>
+      <div class="cmd with-label"><span class="label">ip و nmcli</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="ip addr show&#10;sudo ip addr add 192.168.1.100/24 dev eth0&#10;sudo ip link set eth0 up&#10;sudo ip route add default via 192.168.1.1&#10;nmcli con mod eth0 ipv4.addresses '192.168.1.100/24'&#10;nmcli con up eth0">⧉ کپی</button></div><pre><code>ip addr show
+sudo ip addr add 192.168.1.100/24 dev eth0
+sudo ip link set eth0 up
+sudo ip route add default via 192.168.1.1
+<span style="opacity:.7"># NetworkManager:</span>
+nmcli con mod eth0 ipv4.addresses <span style="opacity:.7">'192.168.1.100/24'</span>
+nmcli con up eth0</code></pre></div>
+      <div class="cmd with-label"><span class="label">DNS و hosts</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="cat /etc/resolv.conf&#10;cat /etc/hosts&#10;dig google.com +short&#10;dig -x 8.8.8.8&#10;nslookup -type=MX google.com">⧉ کپی</button></div><pre><code>cat /etc/resolv.conf        <span style="opacity:.7"># DNS</span>
+cat /etc/hosts              <span style="opacity:.7"># نقشه نام</span>
+dig google.com +short       <span style="opacity:.7"># خلاصه</span>
+dig -x 8.8.8.8              <span style="opacity:.7"># reverse</span>
+nslookup -type=MX google.com</code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>ابزارهای عیب‌یابی</h3>
+      <div class="cmd with-label"><span class="label">ping / ss / curl</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="ping -c 4 google.com&#10;traceroute -n google.com&#10;mtr google.com&#10;ss -tlnp&#10;ss -tunap&#10;ss -s&#10;curl -I https://example.com">⧉ کپی</button></div><pre><code>ping -c 4 google.com       <span style="opacity:.7"># ICMP</span>
+traceroute -n google.com   <span style="opacity:.7"># مسیر</span>
+mtr google.com             <span style="opacity:.7"># ترکیب</span>
+ss -tlnp                   <span style="opacity:.7"># پورت‌های شنود</span>
+ss -tunap                  <span style="opacity:.7"># تمام اتصالات</span>
+ss -s                      <span style="opacity:.7"># خلاصه</span>
+curl -I https://example.com</code></pre></div>
+      <div class="callout tip"><div class="ct">💡 نکته</div><p><code>ss</code> جایگزین مدرن <code>netstat</code> است و سریع‌تر است. گزینه <code>-p</code> پروسس را نشان می‌دهد.</p></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>iptables / nftables / firewalld</h3>
+      <div class="cmd with-label"><span class="label">iptables</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo iptables -L -n -v&#10;sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT&#10;sudo iptables -A INPUT -s 192.168.1.0/24 -j ACCEPT&#10;sudo iptables -A INPUT -j DROP&#10;sudo iptables -P INPUT DROP">⧉ کپی</button></div><pre><code>sudo iptables -L -n -v    <span style="opacity:.7"># لیست</span>
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -A INPUT -s 192.168.1.0/24 -j ACCEPT
+sudo iptables -A INPUT -j DROP
+sudo iptables -P INPUT DROP   <span style="opacity:.7"># سیاست پیش‌فرض</span></code></pre></div>
+      <div class="cmd with-label"><span class="label">firewalld (RHEL/Fedora)</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo firewall-cmd --get-default-zone&#10;sudo firewall-cmd --add-service=http --permanent&#10;sudo firewall-cmd --add-port=8080/tcp --permanent&#10;sudo firewall-cmd --remove-port=8080/tcp --permanent&#10;sudo firewall-cmd --reload&#10;sudo firewall-cmd --list-all">⧉ کپی</button></div><pre><code>sudo firewall-cmd --get-default-zone
+sudo firewall-cmd --add-service=http --permanent
+sudo firewall-cmd --add-port=8080/tcp --permanent
+sudo firewall-cmd --remove-port=8080/tcp --permanent
+sudo firewall-cmd --reload   <span style="opacity:.7"># اعمال</span>
+sudo firewall-cmd --list-all</code></pre></div>
+      <div class="callout tip"><div class="ct">💡 نکته</div><p>بدون <code>--permanent</code> قوانین موقتی‌اند. برای دائمی: <code>--permanent</code> + <code>--reload</code>.</p></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>SSH و انتقال فایل</h3>
+      <div class="cmd with-label"><span class="label">ssh و کلید</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="ssh user@server&#10;ssh -p 2222 user@server&#10;ssh-keygen -t ed25519 -C 'you@mail.com'&#10;ssh-copy-id user@server&#10;scp file.txt user@server:/remote/&#10;rsync -avz --delete local/ user@server:/remote/">⧉ کپی</button></div><pre><code>ssh user@server
+ssh -p 2222 user@server          <span style="opacity:.7"># پورت</span>
+ssh-keygen -t ed25519 -C <span style="opacity:.7">'you@mail.com'</span>
+ssh-copy-id user@server          <span style="opacity:.7"># ارسال کلید</span>
+scp file.txt user@server:/remote/
+rsync -avz --delete local/ user@server:/remote/</code></pre></div>
+      <div class="callout note"><div class="ct">📌 <code>~/.ssh/config</code></div>
+        <p><code>Host prod</code><br><code>&nbsp;&nbsp;HostName 192.168.1.100</code><br><code>&nbsp;&nbsp;User deploy</code><br><code>&nbsp;&nbsp;Port 2222</code><br><code>&nbsp;&nbsp;IdentityFile ~/.ssh/id_ed25519</code></p>
+      </div>
+      <div class="callout danger"><div class="ct">🔴 امنیت SSH</div>
+        <p>در <code>/etc/ssh/sshd_config</code>: <code>PermitRootLogin no</code> · <code>PasswordAuthentication no</code> · <code>MaxAuthTries 3</code>. سپس <code>sudo sshd -t</code> و ری‌استارت.</p>
+      </div>
+    </div>
+
+    <a href="#top" class="back-top">⬆ بازگشت به بالای صفحه</a>
+  </section>
+
+  <!-- SECTION 10 -->
+  <section class="section" id="sec10">
+    <div class="section-header"><div class="icon">🔒</div><div><h2>۱۰. امنیت سیستم</h2><div class="sub">Security &amp; SSH</div></div></div>
+
+    <div class="sub-section">
+      <h3>PAM — احراز هویت مدولار</h3>
+      <div class="cmd with-label"><span class="label">مدیریت PAM</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="ls /etc/pam.d/&#10;sudo pam_tally2 --user john&#10;sudo pam_tally2 --user john --reset&#10;# محدودیت: auth required pam_tally2.so deny=5 unlock_time=900&#10;# رمز قوی: /etc/security/pwquality.conf minlen=12">⧉ کپی</button></div><pre><code>ls /etc/pam.d/
+sudo pam_tally2 --user john        <span style="opacity:.7"># تلاش‌ها</span>
+sudo pam_tally2 --user john --reset
+<span style="opacity:.7"># محدودیت تلاش: deny=5 unlock_time=900</span>
+<span style="opacity:.7"># رمز قوی: minlen=12</span></code></pre></div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>type</th><th>نقش</th></tr></thead>
+        <tbody>
+          <tr><td>auth</td><td>تأیید هویت</td></tr>
+          <tr><td>account</td><td>اعتبار حساب (انقضا، محدودیت)</td></tr>
+          <tr><td>password</td><td>مدیریت رمز</td></tr>
+          <tr><td>session</td><td>تنظیمات هر جلسه</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>SELinux</h3>
+      <p>SELinux یک سیستم امنیتی اجباری (MAC) است. سه حالت: <code>Enforcing</code> (اعمال)، <code>Permissive</code> (گزارش)، <code>Disabled</code>.</p>
+      <div class="cmd with-label"><span class="label">وضعیت و مدیریت</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="getenforce&#10;sestatus&#10;sudo setenforce 0   # Permissive (موقت)&#10;sudo setenforce 1   # Enforcing (موقت)&#10;ls -Z /var/www/html/&#10;sudo audit2why &lt; /var/log/audit/audit.log&#10;sudo restorecon -Rv /var/www">⧉ کپی</button></div><pre><code>getenforce          <span style="opacity:.7"># حالت فعلی</span>
+sestatus            <span style="opacity:.7"># جزئیات</span>
+sudo setenforce 0   <span style="opacity:.7"># Permissive (موقت)</span>
+sudo setenforce 1   <span style="opacity:.7"># Enforcing (موقت)</span>
+ls -Z /var/www/html/       <span style="opacity:.7"># context فایل</span>
+sudo audit2why &lt; /var/log/audit/audit.log   <span style="opacity:.7"># توضیح مشکل</span>
+sudo restorecon -Rv /var/www                <span style="opacity:.7"># اصلاح context</span></code></pre></div>
+      <div class="callout note"><div class="ct">📌 تغییر دائمی</div><p>در <code>/etc/selinux/config</code> مقدار <code>SELINUX=</code> را تغییر دهید و ری‌استارت کنید.</p></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>AppArmor</h3>
+      <div class="cmd with-label"><span class="label">مدیریت profile</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="sudo aa-status&#10;sudo aa-enforce /etc/apparmor.d/usr.sbin.nginx&#10;sudo aa-complain /etc/apparmor.d/usr.sbin.nginx&#10;sudo aa-disable /etc/apparmor.d/usr.sbin.nginx">⧉ کپی</button></div><pre><code>sudo aa-status
+sudo aa-enforce /etc/apparmor.d/usr.sbin.nginx   <span style="opacity:.7"># Enforcing</span>
+sudo aa-complain /etc/apparmor.d/usr.sbin.nginx  <span style="opacity:.7"># فقط گزارش</span>
+sudo aa-disable /etc/apparmor.d/usr.sbin.nginx   <span style="opacity:.7"># غیرفعال</span></code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>GPG — رمزنگاری</h3>
+      <div class="cmd with-label"><span class="label">کلید و رمزنگاری</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="gpg --gen-key&#10;gpg --list-keys&#10;gpg -e -r you@mail.com file.txt&#10;gpg -d file.txt.gpg &gt; file.txt&#10;gpg --export -a 'you@mail.com' &gt; pub.asc&#10;gpg --import pub.asc">⧉ کپی</button></div><pre><code>gpg --gen-key                      <span style="opacity:.7"># ساخت کلید</span>
+gpg --list-keys                    <span style="opacity:.7"># لیست</span>
+gpg -e -r you@mail.com file.txt    <span style="opacity:.7"># رمزنگاری</span>
+gpg -d file.txt.gpg &gt; file.txt     <span style="opacity:.7"># رمزگشایی</span>
+gpg --export -a <span style="opacity:.7">'you@mail.com'</span> &gt; pub.asc
+gpg --import pub.asc               <span style="opacity:.7"># ایمپورت</span></code></pre></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>بررسی‌های امنیتی ضروری</h3>
+      <div class="cmd with-label"><span class="label">اسکن سیستم</span><div class="cmd-head"><span class="dots"><i></i><i></i><i></i></span><button class="cmd-copy" data-copy="find / -perm -4000 -type f 2&gt;/dev/null&#10;find / -xdev -type f -perm -o+w 2&gt;/dev/null&#10;awk -F: '($3 == 0) {print $1}' /etc/passwd&#10;awk -F: '($2 == "") {print $1}' /etc/shadow&#10;sudo systemctl status fail2ban&#10;sudo fail2ban-client status sshd">⧉ کپی</button></div><pre><code><span style="opacity:.7"># فایل‌های SUID</span>
+find / -perm -4000 -type f 2&gt;/dev/null
+<span style="opacity:.7"># فایل‌های قابل نوشتن توسط دیگران</span>
+find / -xdev -type f -perm -o+w 2&gt;/dev/null
+<span style="opacity:.7"># کاربران با UID 0 (فقط root)</span>
+awk -F: <span style="opacity:.7">'($3 == 0) {print $1}'</span> /etc/passwd
+<span style="opacity:.7"># کاربران بدون رمز</span>
+awk -F: <span style="opacity:.7">'($2 == "") {print $1}'</span> /etc/shadow
+sudo systemctl status fail2ban
+sudo fail2ban-client status sshd</code></pre></div>
+      <div class="callout danger"><div class="ct">🔴 بهترین‌عمل امنیتی</div>
+        <p>SSH را به <code>PasswordAuthentication no</code> تنظیم کنید، ورود root را غیرفعال کنید، دنیای SUID را محدود کنید و از fail2ban استفاده کنید.</p>
+      </div>
+    </div>
+
+    <a href="#top" class="back-top">⬆ بازگشت به بالای صفحه</a>
+  </section>
+
+  <!-- QUICK REFERENCE -->
+  <section class="section" id="quickref">
+    <div class="section-header"><div class="icon">⚡</div><div><h2>مرجع سریع — دستورات پرکاربرد</h2><div class="sub">Quick Reference</div></div></div>
+    <div class="qr-grid">
+      <div class="qr-item"><code>ls -lah</code>لیست فایل (جزئیات)</div>
+      <div class="qr-item"><code>df -h</code>استفاده از دیسک</div>
+      <div class="qr-item"><code>du -sh /path</code>اندازه دایرکتوری</div>
+      <div class="qr-item"><code>free -h</code>حافظه</div>
+      <div class="qr-item"><code>top</code>مانیتورینگ</div>
+      <div class="qr-item"><code>uname -a</code>اطلاعات سیستم</div>
+      <div class="qr-item"><code>lsblk</code>بلوک‌دستگاه</div>
+      <div class="qr-item"><code>journalctl -b -p err</code>خطای بوت</div>
+      <div class="qr-item"><code>ss -tlnp</code>پورت‌های شنود</div>
+      <div class="qr-item"><code>ip addr show</code>آدرس IP</div>
+      <div class="qr-item"><code>grep -rn 'x' /path</code>جستجو</div>
+      <div class="qr-item"><code>find / -name '*.log'</code>یافتن فایل</div>
+      <div class="qr-item"><code>chmod 755 file</code>مجوز</div>
+      <div class="qr-item"><code>chown u:g file</code>مالکیت</div>
+      <div class="qr-item"><code>crontab -e</code>زمان‌بندی</div>
+      <div class="qr-item"><code>visudo</code>ویرایش sudoers</div>
+      <div class="qr-item"><code>ssh-keygen -t ed25519</code>کلید SSH</div>
+      <div class="qr-item"><code>awk -F: '{print $1}' /etc/passwd</code>ستون</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p><strong>مرجع کامل LPIC-1</strong> — ساخته‌شده برای مهندسان DevOps و مدیران سیستم لینوکس</p>
+    <p style="margin-top:6px">نسخه ۳.۰ • ۲۰۲۶ • مطابق با سرفصل‌های رسمی LPIC-1 v5.0</p>
+  </footer>
+
+</div>
+
+<button class="back-to-top-fab" id="fab" title="بازگشت به بالا">↑</button>
+
+<script>
+  // ===== Theme toggle =====
+  (function(){
+    var b = document.getElementById('themeToggle');
+    var root = document.documentElement;
+    function apply(t){
+      if(t==='dark'){ root.setAttribute('data-theme','dark'); b.textContent='☀️'; }
+      else { root.removeAttribute('data-theme'); b.textContent='🌙'; }
+    }
+    var saved = localStorage.getItem('lpic-theme');
+    apply(saved === 'dark' ? 'dark' : 'light');
+    b.addEventListener('click', function(){
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('lpic-theme', next);
+      apply(next);
+    });
+  })();
+
+  // ===== Copy buttons =====
+  document.querySelectorAll('.cmd-copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = btn.getAttribute('data-copy');
+      if(!navigator.clipboard){
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta);
+      } else {
+        navigator.clipboard.writeText(text).catch(function(){});
+      }
+      var orig = btn.textContent;
+      btn.textContent = '✓ کپی شد';
+      btn.classList.add('copied');
+      setTimeout(function(){
+        btn.textContent = orig;
+        btn.classList.remove('copied');
+      }, 1500);
+    });
+  });
+
+  // ===== Active nav link on scroll =====
+  var sections = document.querySelectorAll('section[id]');
+  var links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', function(){
+    var pos = window.scrollY + 120;
+    var current = '';
+    sections.forEach(function(s){ if(pos >= s.offsetTop) current = s.id; });
+    links.forEach(function(l){
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+    var fab = document.getElementById('fab');
+    if(window.scrollY > 400){ fab.classList.add('show'); } else { fab.classList.remove('show'); }
+  });
+
+  // ===== Back to top FAB =====
+  document.getElementById('fab').addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior:'smooth' });
+  });
+</script>
+
+</body>
+</html>
